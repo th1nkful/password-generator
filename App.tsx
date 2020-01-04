@@ -1,24 +1,26 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, Clipboard } from 'react-native';
+import { SafeAreaView } from 'react-native';
 
-export default function App() {
-  const setClipboard = async () => {
-    await Clipboard.setString('sicko mode!');
-  };
+import { EvaIconsPack } from '@ui-kitten/eva-icons';
+import { mapping, dark as darkTheme } from '@eva-design/eva';
+import { ApplicationProvider, IconRegistry, Layout } from '@ui-kitten/components';
 
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Button title="Copy" onPress={setClipboard}>Copyrsrsrs</Button>
-    </View>
-  );
-}
+import { Navigation } from './components';
+import { HomeScreen } from './views';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// https://akveo.github.io/react-native-ui-kitten/docs/guides/branding#fonts
+const theme = { ...darkTheme };
+
+export default () => (
+  <>
+    <IconRegistry icons={EvaIconsPack} />
+    <ApplicationProvider mapping={mapping} theme={theme}>
+        <Layout style={{ height: '100%' }}>
+          <SafeAreaView>
+            <Navigation />
+            <HomeScreen />
+          </SafeAreaView>
+        </Layout> 
+    </ApplicationProvider>
+  </>
+);
